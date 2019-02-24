@@ -2,7 +2,7 @@
   <div>
   <Search
     v-model="value"
-    placeholder="请输入目的地"/>
+    placeholder="生活不止眼前的苟且，还有诗和远方"/>
 
     约伴页面
   </div>
