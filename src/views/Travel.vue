@@ -1,8 +1,17 @@
 <template>
   <div>
-  <Search
-    v-model="value"
-    placeholder="生活不止眼前的苟且，还有诗和远方"/>
+    <flexbox>
+      <flexbox-item :span="10">
+        <Search
+          v-model="value"
+          placeholder="生活不止眼前的苟且，还有诗和远方"/>
+      </flexbox-item>
+      <flexbox-item :span="2">
+        <router-link :to="{name:'AddPlan',params: {id: 1}}"><b class="fabu">发布</b></router-link>
+      </flexbox-item>
+    </flexbox>
+
+    <x-button class="fixButton" mini v-tap="{methods:addplan}">添加</x-button>
     <div class="wrapperbg">
       <flexbox orient="vertical">
         <flexbox-item v-for="plan in plans" :key="plan.id" class="itemWrapper">
@@ -50,9 +59,11 @@
 <script>
 import { Search } from 'vux'
 import { Flexbox, FlexboxItem, Divider, XImg, Icon   } from 'vux'
+import XButton from "vux/src/components/x-button/index";
 export default {
   name: "Travel",
   components: {
+    XButton,
     Search,
     Flexbox,
     FlexboxItem,
@@ -137,6 +148,12 @@ export default {
         }
         ]
     }
+  },
+  methods: {
+    addplan() {
+      console.log(111)
+      this.$router.push({path: '/plan/' + 1})
+    }
   }
 }
 </script>
@@ -203,5 +220,14 @@ export default {
   }
   a {
     text-decoration: none;
+  }
+  .fabu{
+    color: purple;
+    font-size: 20px;
+  }
+  .fixButton{
+    position: fixed;
+    bottom: 100px;
+    left: 80%;
   }
 </style>
