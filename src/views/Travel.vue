@@ -4,6 +4,7 @@
       <flexbox-item>
         <Search
           v-model="value"
+          auto-fixed
           placeholder="生活不止眼前的苟且，还有诗和远方"/>
       </flexbox-item>
       <!--<flexbox-item :span="2">-->
@@ -49,9 +50,9 @@
 
         </flexbox-item>
       </flexbox>
+      <divider></divider>
       <divider>我是有底线的人</divider>
-      <divider></divider>
-      <divider></divider>
+
     </div>
   </div>
 </template>

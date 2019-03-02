@@ -13,7 +13,7 @@
           </div>
         </flexbox-item>
         <flexbox-item :span="3">
-          <x-button type="default" mini>报名</x-button>
+          <x-button type="warn" mini class="signbg">报名</x-button>
         </flexbox-item>
       </flexbox>
       <flexbox class="itemContent" orient="vertical">
@@ -80,7 +80,7 @@
       </flexbox>
       <group>
         <x-input  v-model="comment" placeholder="请输入评论内容">
-          <x-button slot="right" type="primary" mini>发布</x-button>
+          <x-button slot="right" type="primary" mini class="butBg">发布</x-button>
         </x-input>
       </group>
     </div>
@@ -165,6 +165,9 @@ export default {
 
 <style scoped lang="less">
   @import '~vux/src/styles/1px.less';
+  .butBg{
+    background-color:#F70968;
+  }
 
   .img-cover {
     width: 100%;
@@ -251,6 +254,10 @@ export default {
     margin: 15px 0 0 5px;
     border-bottom: 1px solid #F5F5F5;
 
+  }
+
+  .signbg{
+    background-color: #4A90E2;
   }
 
 </style>

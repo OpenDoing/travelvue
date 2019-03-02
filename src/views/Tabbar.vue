@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      selected: '约伴'
+      selected: '我的'
     }
   }
 }
