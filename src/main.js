@@ -8,7 +8,11 @@ import 'mint-ui/lib/style.css'
 import vueTap from 'v-tap'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VueCookies from 'vue-cookies'
+import  { ToastPlugin } from 'vux'
 
+Vue.use(ToastPlugin)
+Vue.use(VueCookies)
 Vue.use(ElementUI)
 Vue.use(vueTap)
 Vue.config.productionTip = false

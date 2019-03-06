@@ -10,10 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.5.4",
     "mint-ui": "^2.2.13",
     "v-tap": "^3.0.3",
     "vue": "^2.5.2",
+    "vue-cookies": "^1.5.12",
     "vue-router": "^3.0.1",
     "vux": "^2.9.2",
     "vux-uploader": "^0.1.9"

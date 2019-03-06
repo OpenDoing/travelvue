@@ -7,10 +7,10 @@
           <Travel></Travel>
         </mt-tab-container-item>
         <mt-tab-container-item id="汇率">
-          <Exchange></Exchange>
+          <!--<Exchange></Exchange>-->
         </mt-tab-container-item>
         <mt-tab-container-item id="记账">
-          <Account></Account>
+          <!--<Account></Account>-->
         </mt-tab-container-item>
         <mt-tab-container-item id="我的">
           <Info></Info>
@@ -19,19 +19,19 @@
     </div>
 
     <mt-tabbar v-model="selected" fixed>
-      <mt-tab-item id="约伴" >
+      <mt-tab-item id="约伴" @click.native="travel">
         <img slot="icon" src="../assets/img/travel.png">
         约伴
       </mt-tab-item>
-      <mt-tab-item id="汇率">
+      <mt-tab-item id="汇率" @click.native="rate">
         <img slot="icon" src="../assets/img/exchange.png">
         汇率
       </mt-tab-item>
-      <mt-tab-item id="记账">
+      <mt-tab-item id="记账" @click.native="money">
         <img slot="icon" src="../assets/img/account.png">
         记账
       </mt-tab-item>
-      <mt-tab-item id="我的">
+      <mt-tab-item id="我的" @click.native="mine">
         <img slot="icon" src="../assets/img/mine.png">
         我的
       </mt-tab-item>
@@ -54,7 +54,22 @@ export default {
   },
   data() {
     return {
-      selected: '我的'
+      selected: '约伴'
+    }
+  },
+  methods: {
+    travel() {
+      this.selected = '约伴'
+    },
+    rate() {
+      this.selected = '约伴'
+    },
+    money() {
+      this.selected = '记账'
+    },
+    mine() {
+      console.log(1)
+      this.selected = '我的'
     }
   }
 }

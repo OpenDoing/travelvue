@@ -6,6 +6,10 @@ import AddPlan from '@/views/plan/AddPlan'
 import AddMoney from '@/views/money/AddMoney'
 import LinePage from '@/views/money/LinePage'
 import EditMoney from '@/views/money/EditMoney'
+import Password from '@/views/info/Password'
+import Profile from '@/views/info/Profile'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -15,6 +19,16 @@ export default new Router({
       path: '/',
       name: 'Tab',
       component: Tabbar
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/detail/:id',
@@ -40,6 +54,16 @@ export default new Router({
       path: '/money/edit/:id',
       name: 'EditMoney',
       component: EditMoney
+    },
+    {
+      path: '/info/password/:id',
+      name: 'Password',
+      component: Password
+    },
+    {
+      path: '/info/edit/:id',
+      name: 'Profile',
+      component: Profile
     },
   ]
 })

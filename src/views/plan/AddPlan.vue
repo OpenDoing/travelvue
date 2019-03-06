@@ -27,25 +27,11 @@
     </flexbox>
     <flexbox class="borderb">
       <flexbox-item class="borderr borderl" >
-        <!--<group>-->
-          <!--<datetime-->
-            <!--v-model="stime"-->
-            <!--title="启程"-->
-            <!--@on-confirm="onConfirmS"-->
-            <!--@on-hide="log('hide', $event)"></datetime>-->
-        <!--</group>-->
         <group>
           <calendar title="启程" v-model="stime" @on-change="onConfirmS"></calendar>
         </group>
       </flexbox-item>
       <flexbox-item class="borderr">
-        <!--<group>-->
-          <!--<datetime-->
-            <!--v-model="etime"-->
-            <!--title="结束"-->
-            <!--@on-confirm="onConfirmE"-->
-            <!--@on-hide="log('hide', $event)"></datetime>-->
-        <!--</group>-->
         <group>
           <calendar title="结束" v-model="etime" @on-change="onConfirmE"></calendar>
         </group>
@@ -71,25 +57,10 @@
     <flexbox class="borderb">
       <flexbox-item class="borderr borderl">
         <group>
-          <x-textarea v-model="detail" placeholder="约伴计划详情描述"></x-textarea>
+          <x-textarea v-model="description" placeholder="约伴计划详情描述"></x-textarea>
         </group>
       </flexbox-item>
     </flexbox>
-    <!--<uploader-->
-        <!--:max="varmax"-->
-        <!--:images="images"-->
-        <!--:handle-click="true"-->
-        <!--:show-header="false"-->
-        <!--:readonly="true"-->
-        <!--:upload-url="uploadUrl"-->
-        <!--:title="uploadUrl"-->
-        <!--name="img"-->
-        <!--:params="params"-->
-        <!--@add-image="addImageMethod"-->
-        <!--@remove-image="removeImageMethod"-->
-        <!--size="normal"-->
-
-      <!--&gt;</uploader>-->
     <flexbox>
       <flexbox-item>
         <el-upload
@@ -103,12 +74,12 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       </flexbox-item>
-      <flexbox-item>点击左侧按钮添加封面</flexbox-item>
+      <flexbox-item><--建议添加横版图片</flexbox-item>
     </flexbox>
     <flexbox class="mt15">
       <flexbox-item :span="3"></flexbox-item>
       <flexbox-item :span="6">
-        <x-button type="warn" class="butBg">添加约伴计划</x-button>
+        <x-button type="warn" class="butBg" @click.native="addPlan">添加约伴计划</x-button>
       </flexbox-item>
     </flexbox>
 
@@ -118,6 +89,8 @@
 <script>
 import {Flexbox, FlexboxItem, XHeader, XButton, Group, XInput, Divider, Datetime, Selector, XTextarea,Calendar,Cell   } from 'vux'
 import Uploader from 'vux-uploader'
+import {config} from "../../utils/global"
+import axios from 'axios'
 export default {
   name: "AddPlan",
   components: {
@@ -138,13 +111,16 @@ export default {
   data() {
     return {
       local: 'http://localhost:8006/plan/cover/',
-      uploadData: {userId: 2},
+      uploadData: {
+        userId: this.$cookies.get('userId')
+      },
       title: '',
       start: '',
       destination: '',
       stime: '',
       etime: '',
       budget: 100,
+      description: '',
       way: 1,
       list: [
         { key: 1, value: 'AA' },
@@ -154,6 +130,7 @@ export default {
       detail: '',
       people: 0,
       imageUrl: '',
+      imgaddress: ''
       // varmax: 2,
       // uploadUrl: '',
       // params: {},
@@ -173,35 +150,38 @@ export default {
     log (str1, str2 = '') {
       console.log(str1, str2)
     },
-    openFile(){
-      this.$refs.file.click();
-    },
-    fileChange() {
+    handleAvatarSuccess(response, file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.imgaddress = response.data
 
     },
-    addImageMethod() {
-      console.log('add')
-    },
-    removeImageMethod() {
-      console.log('remove')
-
-    },
-    handleAvatarSuccess(res, file) {
-      // this.imageUrl = URL.createObjectURL(file.raw);
-      this.imageUrl = 'http://localhost:8006/image/nanjing.jpg'
-      console.log(this.imageUrl)
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
+    addPlan() {
+      const url = config.base_url + '/plan/add'
+      const way = this.list[this.way - 1].value
+      const userId = this.$cookies.get('userId')
+      if (this.imgaddress) {
+        axios
+          .post(url,{
+            userId: userId,
+            title: this.title,
+            start: this.start,
+            destination: this.destination,
+            stime: this.stime,
+            etime: this.etime,
+            budget: this.budget,
+            people: this.people,
+            fee: way,
+            description: this.description,
+            cover: this.imgaddress
+          })
+          .then(response=>{
+            this.$vux.toast.text('添加计划成功！', 'bottom')
+            console.log(response)
+          })
+      } else {
+        this.$vux.toast.text('等等，图片还在上传！', 'bottom')
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
+
     }
   }
 }

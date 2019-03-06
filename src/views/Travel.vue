@@ -42,8 +42,8 @@
             <flexbox align="center" justify-content="center">
               <flexbox-item :span="9"></flexbox-item>
               <flexbox-item :span="3">
-                <img src="../assets/img/join.svg" class="imgcenter"/>{{plan.join}}
-                <img src="../assets/img/comment.svg" class="imgcenter"/>{{plan.comment}}
+                <img src="../assets/img/join.svg" class="imgcenter"/>{{plan.joins.length}}
+                <img src="../assets/img/comment.svg" class="imgcenter"/>{{plan.comments.length}}
               </flexbox-item>
             </flexbox>
           </router-link>
@@ -59,98 +59,46 @@
 
 <script>
 import { Search } from 'vux'
-import { Flexbox, FlexboxItem, Divider, XImg, Icon   } from 'vux'
-import XButton from "vux/src/components/x-button/index";
+import { Flexbox, FlexboxItem, Divider, XImg, Icon,XButton   } from 'vux'
+import { config } from "../utils/global"
+
+import axios from 'axios'
 export default {
   name: "Travel",
   components: {
-    XButton,
     Search,
     Flexbox,
     FlexboxItem,
     Divider,
     XImg,
-    Icon
+    Icon,
+    XButton
   },
   data() {
     return {
       value: '',
-      plans: [    {
-        "id": 2,
-        "userId": 1,
-        "title": "1",
-        "start": null,
-        "destination": "南京",
-        "ctime": "2019-02-25T20:45:35",
-        "stime": "2019-02-28T16:00:00.000+0000",
-        "etime": "2019-03-02T16:00:00.000+0000",
-        "cover": "http://localhost:8006/image/nanjing.jpg",
-        "description": "六朝古都，秦淮美食",
-        "username": "旅行发烧友",
-        "sex": 1,
-        "avatar": "http://localhost:8006/image/7b18f34c-f533-4605-9172-7c89a8d25e19.jpg",
-        "join": 1,
-        "comment": 2,
-        "age": 18
-      },
-        {
-          "id": 3,
-          "userId": 1,
-          "title": "南京2日游",
-          "start": "太原",
-          "destination": "南京",
-          "ctime": "2019-02-25T20:47:05",
-          "stime": "2019-02-28T16:00:00.000+0000",
-          "etime": "2019-03-02T16:00:00.000+0000",
-          "cover": "http://localhost:8006/image/nanjing1.jpg",
-          "description": "六朝古都，秦淮美食",
-          "username": "oppo",
-          "sex": 0,
-          "avatar": "http://localhost:8006/image/7b18f34c-f533-4605-9172-7c89a8d25e19.jpg",
-          "join": 2,
-          "comment": 5,
-          "age": 20
-        },
-        {
-          "id": 4,
-          "userId": 1,
-          "title": "333",
-          "start": null,
-          "destination": "南京",
-          "ctime": "2019-02-25T20:45:35",
-          "stime": "2019-02-28T16:00:00.000+0000",
-          "etime": "2019-03-02T16:00:00.000+0000",
-          "cover": "http://localhost:8006/image/default.png",
-          "description": "六朝古都，秦淮美食",
-          "username": "oppo",
-          "sex": 1,
-          "avatar": "http://localhost:8006/image/7b18f34c-f533-4605-9172-7c89a8d25e19.jpg",
-          "join": 6,
-          "comment": 2,
-          "age": 23
-        },
-        {
-          "id": 5,
-          "userId": 1,
-          "title": "南京4日游",
-          "start": "太原",
-          "destination": "南京",
-          "ctime": "2019-02-25T20:47:05",
-          "stime": "2019-02-28T16:00:00.000+0000",
-          "etime": "2019-03-02T16:00:00.000+0000",
-          "cover": "http://localhost:8006/image/nanjing.jpg",
-          "description": "六朝古都，秦淮美食",
-          "username": "oppo",
-          "sex": 1,
-          "avatar": "http://localhost:8006/image/7b18f34c-f533-4605-9172-7c89a8d25e19.jpg",
-          "join": 7,
-          "comment": 20,
-          "age": 19
-        }
-        ]
+      plans: [],
     }
   },
+  mounted() {
+    this.init()
+  },
   methods: {
+    init() {
+      const url = config.base_url + '/plan/list?id=1'
+      axios
+        .get(url)
+        .then(response=>{
+          let data = response.data
+          for (let i = 0; i < data.length;i++){
+            data[i].avatar = config.image_url + data[i].avatar
+            data[i].cover = config.image_url + data[i].cover
+          }
+          this.plans = data
+          console.log(data)
+        })
+
+    },
     addplan() {
       console.log(111)
       this.$router.push({path: '/plan/' + 1})
