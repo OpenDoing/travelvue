@@ -23,36 +23,36 @@
         </el-upload>
       </flexbox-item>
     </flexbox>
-    <flexbox style="margin-top: 20px;">
-      <flexbox-item :span="1"></flexbox-item>
-      <flexbox-item class="bg" style="border-radius: 10px">
-        <flexbox>
-          <flexbox-item :span="3" class="paddingimg">
-            <img src="../../static/img/money/else/plan.svg" class="plan"/>
-          </flexbox-item>
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item><b>我创建的</b></flexbox-item>
-              <flexbox-item style="margin-top: 0">{{createNum}}条</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-        </flexbox>
-      </flexbox-item>
-      <flexbox-item class="bg" style="border-radius: 10px;margin-left: 15px">
-        <flexbox>
-          <flexbox-item :span="3" class="paddingimg">
-            <img src="../../static/img/money/else/plan.svg" class="plan"/>
-          </flexbox-item>
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item><b>我加入的</b></flexbox-item>
-              <flexbox-item style="margin-top: 0">{{joinNum}}条</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-        </flexbox>
-      </flexbox-item>
-      <flexbox-item :span="1"></flexbox-item>
-    </flexbox>
+    <!--<flexbox style="margin-top: 20px;">-->
+      <!--<flexbox-item :span="1"></flexbox-item>-->
+      <!--<flexbox-item class="bg" style="border-radius: 10px">-->
+        <!--<flexbox>-->
+          <!--<flexbox-item :span="3" class="paddingimg">-->
+            <!--<img src="../../static/img/money/else/plan.svg" class="plan"/>-->
+          <!--</flexbox-item>-->
+          <!--<flexbox-item>-->
+            <!--<flexbox orient="vertical">-->
+              <!--<flexbox-item><b>我创建的</b></flexbox-item>-->
+              <!--<flexbox-item style="margin-top: 0">{{createNum}}条</flexbox-item>-->
+            <!--</flexbox>-->
+          <!--</flexbox-item>-->
+        <!--</flexbox>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item class="bg" style="border-radius: 10px;margin-left: 15px">-->
+        <!--<flexbox>-->
+          <!--<flexbox-item :span="3" class="paddingimg">-->
+            <!--<img src="../../static/img/money/else/plan.svg" class="plan"/>-->
+          <!--</flexbox-item>-->
+          <!--<flexbox-item>-->
+            <!--<flexbox orient="vertical">-->
+              <!--<flexbox-item><b>我加入的</b></flexbox-item>-->
+              <!--<flexbox-item style="margin-top: 0">{{joinNum}}条</flexbox-item>-->
+            <!--</flexbox>-->
+          <!--</flexbox-item>-->
+        <!--</flexbox>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item :span="1"></flexbox-item>-->
+    <!--</flexbox>-->
     <flexbox style="margin-top: 30px" class="borderb"></flexbox>
     <flexbox orient="vertical">
       <flexbox-item>

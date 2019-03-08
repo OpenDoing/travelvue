@@ -22,8 +22,8 @@
               <flexbox-item :span="8">
                 <div class="ufont">
                   <b>{{plan.username}}</b>
-                  <mt-badge type="primary" size="small" v-if="plan.sex === 0" color="#d4237a" class="ml15">♀{{plan.age}}</mt-badge>
-                  <mt-badge type="primary" size="small" v-else color="#1296db" class="ml15">♂{{plan.age}}</mt-badge>
+                  <mt-badge type="primary" size="small" v-if="plan.sex === '女'" color="#d4237a" class="ml15">♀</mt-badge>
+                  <mt-badge type="primary" size="small" v-else color="#1296db" class="ml15">♂</mt-badge>
                 </div>
               </flexbox-item>
               <flexbox-item :span="2"><div class="timefont">{{plan.ctime.substring(11,16)}}</div></flexbox-item>
@@ -61,7 +61,6 @@
 import { Search } from 'vux'
 import { Flexbox, FlexboxItem, Divider, XImg, Icon,XButton   } from 'vux'
 import { config } from "../utils/global"
-
 import axios from 'axios'
 export default {
   name: "Travel",

@@ -112,8 +112,8 @@ export default {
         })
         .then(response=>{
           this.$vux.toast.text('注册成功！', 'bottom')
-          this.$cookies.set('userId', response.data.data.id, 60 * 60)
-          this.$cookies.set('username', response.data.data.username,60 * 60)
+          this.$cookies.set('userId', response.data.data.id, 60 * 60 * 24 * 100)
+          this.$cookies.set('username', response.data.data.username,60 * 60 * 24 * 100)
           this.userId = response.data.data.id
           this.idOK = true
           this.$router.push({path: '/'})

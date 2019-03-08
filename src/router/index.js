@@ -10,6 +10,8 @@ import Password from '@/views/info/Password'
 import Profile from '@/views/info/Profile'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
+import Line from '@/views/Line'
+
 Vue.use(Router)
 
 export default new Router({
@@ -65,5 +67,10 @@ export default new Router({
       name: 'Profile',
       component: Profile
     },
+    {
+      path: '/line',
+      name: 'Line',
+      component: Line
+    }
   ]
 })

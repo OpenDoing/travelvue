@@ -7,10 +7,10 @@
           <Travel></Travel>
         </mt-tab-container-item>
         <mt-tab-container-item id="汇率">
-          <!--<Exchange></Exchange>-->
+          <Exchange></Exchange>
         </mt-tab-container-item>
         <mt-tab-container-item id="记账">
-          <!--<Account></Account>-->
+          <Account></Account>
         </mt-tab-container-item>
         <mt-tab-container-item id="我的">
           <Info></Info>
@@ -62,7 +62,7 @@ export default {
       this.selected = '约伴'
     },
     rate() {
-      this.selected = '约伴'
+      this.selected = '汇率'
     },
     money() {
       this.selected = '记账'

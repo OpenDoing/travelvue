@@ -2,8 +2,8 @@
   <div>
     <x-header class="headerbg">添加收支</x-header>
     <tab active-color="#FF9900">
-      <tab-item selected @on-item-click="onItemClick">支出</tab-item>
-      <tab-item @on-item-click="onItemClick">收入</tab-item>
+      <tab-item selected @on-item-click="onItemClickE">支出</tab-item>
+      <tab-item @on-item-click="onItemClickI">收入</tab-item>
     </tab>
     <swiper v-show="expend" style="margin-top: 30px;">
       <swiper-item>
@@ -90,7 +90,7 @@
     <flexbox style="margin-top: 40px">
       <flexbox-item :span="3"></flexbox-item>
       <flexbox-item :span="6">
-        <x-button type="primary" class="">添加</x-button>
+        <x-button type="primary" class=""  @click.native="add">添加</x-button>
       </flexbox-item>
     </flexbox>
   </div>
@@ -98,6 +98,8 @@
 
 <script>
 import { Flexbox, FlexboxItem, XHeader, XButton, Group, XInput, Swiper, SwiperItem, Tab, TabItem,Calendar } from 'vux'
+import {config} from "../../utils/global"
+import axios from 'axios'
 // import SwiperItem from "vux/src/components/swiper/swiper-item";
 export default {
   name: "Add",
@@ -126,102 +128,107 @@ export default {
         {
           id: 1,
           name: '服饰',
-          path: '../../../static/img/money/cloth.svg'
+          path: '../../../static/img/money/服饰.svg'
         },
         {
           id: 2,
           name: '日用',
-          path: '../../../static/img/money/every.svg'
+          path: '../../../static/img/money/日用.svg'
         },
         {
           id: 3,
           name: '美容',
-          path: '../../../static/img/money/face.svg'
+          path: '../../../static/img/money/美容.svg'
         },
         {
           id: 4,
           name: '餐饮',
-          path: '../../../static/img/money/food.svg'
+          path: '../../../static/img/money/餐饮.svg'
         },
         {
           id: 5,
           name: '娱乐',
-          path: '../../../static/img/money/happy.svg'
+          path: '../../../static/img/money/娱乐.svg'
         },
         {
           id: 6,
           name: '医疗',
-          path: '../../../static/img/money/medical.svg'
+          path: '../../../static/img/money/医疗.svg'
         },
         {
           id: 7,
           name: '通讯',
-          path: '../../../static/img/money/phone.svg'
+          path: '../../../static/img/money/通讯.svg'
         },
         {
           id: 8,
           name: '住房',
-          path: '../../../static/img/money/rent.svg'
+          path: '../../../static/img/money/住房.svg'
         },
         {
           id: 9,
           name: '购物',
-          path: '../../../static/img/money/shopping.svg'
+          path: '../../../static/img/money/购物.svg'
         },
         {
           id: 10,
           name: '运动',
-          path: '../../../static/img/money/sport.svg'
+          path: '../../../static/img/money/运动.svg'
         },
         {
           id: 11,
           name: '交通',
-          path: '../../../static/img/money/subway.svg'
+          path: '../../../static/img/money/交通.svg'
         },
         {
           id: 12,
           name: '门票',
-          path: '../../../static/img/money/ticket.svg'
+          path: '../../../static/img/money/门票.svg'
         },
       ],
       iiconList: [
         {
           id: 1,
           name: '工资',
-          path: '../../../static/img/money/income/salary.svg'
+          path: '../../../static/img/money/工资.svg'
         },
         {
           id: 2,
           name: '兼职',
-          path: '../../../static/img/money/income/parttime.svg'
+          path: '../../../static/img/money/兼职.svg'
         },
         {
           id: 3,
           name: '理财',
-          path: '../../../static/img/money/income/management.svg'
+          path: '../../../static/img/money/理财.svg'
         },
         {
           id: 4,
           name: '红包',
-          path: '../../../static/img/money/income/redpackage.svg'
+          path: '../../../static/img/money/红包.svg'
         },
         {
           id: 5,
           name: '其他',
-          path: '../../../static/img/money/income/else.svg'
+          path: '../../../static/img/money/其他.svg'
         },
-      ]
+      ],
+      activeIndex: 0
     }
   },
+  mounted() {
+    this.init()
+  },
   methods: {
-    onItemClick(index) {
-      if (index === 0) {
-        this.expend = true
-        this.income = false
-      } else {
-        this.expend = false
-        this.income = true
-      }
+    onItemClickE() {
+      this.expend = true
+      this.income = false
+      this.activeIndex = 0
+    },
+    onItemClickI() {
+      this.expend = false
+      this.income = true
+      this.activeIndex = 1
     },
     chooseE1(val) {
       console.log(val)
@@ -230,6 +237,23 @@ export default {
     onConfirmE (val) {
       this.today = val
     },
+    add() {
+      const url = config.base_url + '/money/add'
+      const userId = this.$cookies.get('userId')
+      axios
+        .post(url,{
+          type: this.activeIndex,
+          category: this.iconClass,
+          userId: userId,
+          time: this.today,
+          sum: this.count,
+          remark: this.remark
+        })
+        .then(response=>{
+          this.$vux.toast.text('添加成功！', 'bottom')
+        })
+    },
+
   }
 }
 </script>

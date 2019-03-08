@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header class="headerbg">旅行记账</x-header>
+    <x-header class="headerbg" title="旅行记账"><router-link :to="{name: 'LinePage',params: {id: userId}}" slot="right" >图表</router-link></x-header>
     <x-icon class="fixButton" type="ios-plus" size="50" v-tap="{methods:addMoney}"></x-icon>
     <flexbox class="headerbg">
       <flexbox-item class="vux-1px-r fontColor">
@@ -9,6 +9,7 @@
         v-model="month"
         format="YYYY-MM"
         @on-confirm="onConfirmM"
+        @on-change="changeDate(value)"
         class="fontColor"
         ></datetime>
       </flexbox-item>
@@ -30,28 +31,33 @@
       <flexbox-item class="borderb">
         <flexbox>
           <flexbox-item class="textl sfont">{{money.date.substring(5,7)}}月{{money.date.substring(8,10)}}日</flexbox-item>
-          <flexbox-item class="textr sfont">支出:{{dayExpsum(money.category)}}</flexbox-item>
-          <flexbox-item class="textr sfont">收入:{{dayInsum(money.category)}}</flexbox-item>
+          <flexbox-item class="textr sfont">支出:{{money.expend}}</flexbox-item>
+          <flexbox-item class="textr sfont">收入:{{money.income}}</flexbox-item>
         </flexbox>
       </flexbox-item>
-      <flexbox-item v-for="detail in money.category" :key="detail.id" class="borderb ml20">
-        <div  @click="editMoney(detail.id)">
+      <flexbox-item v-for="detail in money.monies" :key="detail.id" class="borderb ml20">
+        <div @click="editMoney(detail.id)">
           <flexbox>
             <flexbox-item :span="2">
-              <img :src="'../static/img/money/' + detail.img + '.svg'" class="iconCategory">
+              <img :src="'../static/img/money/' + detail.category + '.svg'" class="iconCategory">
             </flexbox-item>
             <flexbox-item :span="7">{{detail.remark}}</flexbox-item>
-            <flexbox-item style="margin-left: 20px">{{detail.cat === 0 ? detail.sum : '-'+detail.sum}}</flexbox-item>
+            <flexbox-item style="margin-left: 20px">{{detail.type === 1 ? detail.sum : '-'+detail.sum}}</flexbox-item>
           </flexbox>
         </div>
 
       </flexbox-item>
     </flexbox>
+    <divider></divider>
+    <divider></divider>
+
   </div>
 </template>
 
 <script>
 import {Flexbox, FlexboxItem, XHeader, XButton, Group, XInput, Divider, Datetime, Selector, XTextarea,Calendar,Cell   } from 'vux'
+import { config } from "../utils/global"
+import axios from 'axios'
 export default {
   name: "Account",
   components: {
@@ -71,50 +77,8 @@ export default {
   data() {
     return {
       month: '2019-03',
-      list: [
-        {
-          date: '2019-02-25',
-          expend: 100.69,
-          income: 100,
-          category: [
-            {
-              id: 1,
-              cat: 0,
-              img: 'cloth',
-              remark: '买衣服',
-              sum: 560
-            },
-            {
-              id: 2,
-              cat: 0,
-              img: 'every',
-              remark: '垃圾袋',
-              sum: 56
-            },
-          ]
-        },
-        {
-          date: '2019-02-24',
-          expend: 100.69,
-          income: 100,
-          category: [
-            {
-              id: 1,
-              cat: 0,
-              img: 'face',
-              remark: '美甲',
-              sum: 46
-            },
-            {
-              id: 2,
-              cat: 1,
-              img: 'food',
-              remark: '零食',
-              sum: 56
-            },
-          ]
-        },
-      ]
+      list: [],
+      userId: 0
     }
   },
   computed: {
@@ -134,7 +98,27 @@ export default {
     },
 
   },
+  mounted() {
+    this.init()
+  },
   methods: {
+    changeDate(value) {
+      this.init()
+    },
+    init() {
+      const userId = this.$cookies.get('userId')
+      this.userId = userId
+      const url = config.base_url + '/money/list?userId=' + userId + '&date=' + this.month
+      axios
+        .get(url)
+        .then(response=>{
+          const data = response.data
+          console.log(data)
+          this.list = data.data
+          console.log(this.list)
+        })
+
+    },
     onConfirmM (val) {
       this.month = val
     },
@@ -162,7 +146,8 @@ export default {
     editMoney(id) {
       console.log('nice')
       this.$router.push({path: '/money/edit/' + id})
-    }
+    },
+
   }
 }
 </script>
