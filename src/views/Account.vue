@@ -39,7 +39,7 @@
         <div @click="editMoney(detail.id)">
           <flexbox>
             <flexbox-item :span="2">
-              <img :src="'../static/img/money/' + detail.category + '.svg'" class="iconCategory">
+              <img :src="'./static/img/money/' + detail.path" class="iconCategory">
             </flexbox-item>
             <flexbox-item :span="7">{{detail.remark}}</flexbox-item>
             <flexbox-item style="margin-left: 20px">{{detail.type === 1 ? detail.sum : '-'+detail.sum}}</flexbox-item>

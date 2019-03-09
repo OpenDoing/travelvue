@@ -4,7 +4,7 @@
     <flexbox class="headerbg">
       <flexbox-item></flexbox-item>
       <flexbox-item class="fcenter">
-        <img :src="'../../../static/img/money/' + page.category + '.svg'" class="imgIcon">
+        <img :src="'./static/img/money/' + page.path" class="imgIcon">
         <br/>
         <span style="color: black;font-size: 14px">{{ page.category }}</span>
       </flexbox-item>
@@ -24,7 +24,7 @@
       </flexbox-item>
       <flexbox-item>
         <group class="fpadding">
-          <x-input title="备注" required v-model="remark" placeholder-align="right" :placeholder="page.remark"></x-input>
+          <x-input title="备注" required v-model="remark" placeholder-align="right" :placeholder="page.remark" ></x-input>
         </group>
       </flexbox-item>
     </flexbox>
@@ -78,7 +78,7 @@ export default {
       date: 'TODAY',
       showConfirm: false,
       remark: '',
-      count: '',
+      count: 0.0,
       time: '',
       page : {}
     }
@@ -95,7 +95,9 @@ export default {
         .then(response=>{
           let data = response.data
           this.page = data.data
-          console.log(this.page)
+          this.remark = this.page.remark
+          this.time = this.page.time.substring(0,10)
+          this.count = this.page.sum
         })
     },
     del(id) {
