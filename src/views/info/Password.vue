@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     changePassword() {
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/user/password?userId=' + userId + '&opassword=' + this.opassword + '&npassword=' + this.npassword1
       if (this.npassword1 !== this.npassword2) {
         this.$vux.toast.text('两次密码不一致', 'bottom')

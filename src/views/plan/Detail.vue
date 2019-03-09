@@ -64,7 +64,10 @@
         <flexbox-item class="wantjoin"><b class="ml15">想约的({{apply}})</b></flexbox-item>
       </flexbox>
       <flexbox orient="vertical" class="itemWrapper">
-        <flexbox-item><img v-for="head in plan.joins" :key="head.id" :src="head.avatar" class="headlist"/></flexbox-item>
+        <flexbox-item>
+          <img v-for="head in plan.joins" :key="head.id" :src="head.avatar" class="headlist" @click="person(head.userId)"/>
+            <!--<router-link :to="{name:'PersonInfo',params: {id: head.userId}}"/>-->
+        </flexbox-item>
         <!--<flexbox-item>{{plan.apply}}人已报名({{boy}}男{{girl}}女)</flexbox-item>-->
       </flexbox>
       <flexbox v-for="comment in plan.comments" :key="comment.id" class="borderbottom">
@@ -119,6 +122,9 @@ export default {
     this.init()
   },
   methods:{
+    person(id) {
+      this.$router.push({name:'PersonInfo',params: {id: id}})
+    },
     init() {
       const url = config.base_url + '/plan/detail?pid=' + this.$route.params.id
       axios
@@ -142,7 +148,7 @@ export default {
     sign() {
       const url = config.base_url + '/join/add'
       const pid = this.$route.params.id
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       axios
         .post(url,{
           pid: pid,
@@ -156,7 +162,7 @@ export default {
     publish() {
       const pid = this.$route.params.id
       const url = config.base_url + '/comment/add'
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       axios
         .post(url,{
           pid: pid,

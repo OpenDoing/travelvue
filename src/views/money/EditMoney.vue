@@ -80,14 +80,7 @@ export default {
       remark: '',
       count: '',
       time: '',
-      page : {
-        id: 5,
-        category: '服饰',
-        kind: 'face',
-        count: '56',
-        time: '2019-03-02',
-        remark: 'nice'
-      }
+      page : {}
     }
   },
   mounted() {
@@ -111,7 +104,6 @@ export default {
     },
     modify() {
       const mid = this.$route.params.id
-      const userId = this.$cookies.get('userId')
       const url = config.base_url + '/money/edit'
       axios
         .post(url,{

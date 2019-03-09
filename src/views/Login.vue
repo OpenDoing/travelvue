@@ -77,8 +77,10 @@ export default {
           console.log(data)
           if (data.errno === 0) {
             if (data.data.status === 1) {
-              this.$cookies.set('userId', data.data.id, 60 * 60 * 24 * 100)
-              this.$cookies.set('username', data.data.username, 60 * 60 * 24 * 100)
+              // this.$cookies.set('userId', data.data.id, 60 * 60 * 24 * 100)
+              // this.$cookies.set('username', data.data.username, 60 * 60 * 24 * 100)
+              window.localStorage.setItem('userId', data.data.id)
+              window.localStorage.setItem('username', data.data.username)
               this.$router.push({path: '/'})
             } else {
               this.$vux.toast.text('您账号异常，已限制登录!', 'bottom')

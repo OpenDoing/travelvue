@@ -110,9 +110,9 @@ export default {
   },
   data() {
     return {
-      local: 'http://localhost:8006/plan/cover/',
+      local: config.base_url + '/plan/cover/',
       uploadData: {
-        userId: this.$cookies.get('userId')
+        userId: localStorage.getItem('userId')
       },
       title: '',
       start: '',
@@ -158,7 +158,7 @@ export default {
     addPlan() {
       const url = config.base_url + '/plan/add'
       const way = this.list[this.way - 1].value
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       if (this.imgaddress) {
         axios
           .post(url,{

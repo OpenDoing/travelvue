@@ -280,7 +280,7 @@ export default {
     },
     weekExpend() {
       const type = 0
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/money/week?userId=' + userId + '&type=' + type
       axios
         .get(url)
@@ -294,7 +294,7 @@ export default {
     },
     weekIncome() {
       const type = 1
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/money/week?userId=' + userId + '&type=' + type
       axios
         .get(url)
@@ -307,7 +307,7 @@ export default {
     },
     monthExpend() {
       const type = 0
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/money/month?userId=' + userId + '&type=' + type
       axios
         .get(url)
@@ -320,7 +320,7 @@ export default {
     },
     monthIncome() {
       const type = 1
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/money/month?userId=' + userId + '&type=' + type
       axios
         .get(url)

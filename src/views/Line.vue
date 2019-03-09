@@ -48,7 +48,7 @@
   methods: {
     req() {
       const type = 0
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/money/week?userId=' + userId + '&type=' + type
       axios
         .get(url)

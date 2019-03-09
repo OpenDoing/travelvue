@@ -5,6 +5,7 @@
         <Search
           v-model="value"
           auto-fixed
+          @on-submit="init"
           placeholder="生活不止眼前的苟且，还有诗和远方"/>
       </flexbox-item>
       <!--<flexbox-item :span="2">-->
@@ -83,8 +84,20 @@ export default {
     this.init()
   },
   methods: {
-    init() {
-      const url = config.base_url + '/plan/list?id=1'
+    compare(property) {
+      return function(a, b) {
+        const value1 = a[property];
+        const value2 = b[property];
+        return value1 - value2;
+      }
+    },
+    init(val) {
+      let url = ''
+      if (val){
+        url = config.base_url + '/plan/des?destination=' + val
+      }else {
+        url = config.base_url + '/plan/list?id=1'
+      }
       axios
         .get(url)
         .then(response=>{
@@ -94,7 +107,10 @@ export default {
             data[i].cover = config.image_url + data[i].cover
           }
           this.plans = data
-          console.log(data)
+          this.plans = this.plans.sort(this.compare("joins.length"))
+          if (data.length === 0) {
+            this.$vux.toast.text('暂无此目的地！', 'bottom')
+          }
         })
 
     },

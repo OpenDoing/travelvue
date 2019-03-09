@@ -97,7 +97,7 @@ export default {
     return {
       local: config.upload_avatar,
       uploadData: {
-        userId: this.$cookies.get('userId')
+        userId: localStorage.getItem('userId')
       },
       userId: '',
       username: '',
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     init() {
-      const userId = this.$cookies.get('userId')
+      const userId = localStorage.getItem('userId')
       const url = config.base_url + '/user/info?userId=' + userId
       axios
         .get(url)
@@ -122,13 +122,11 @@ export default {
           this.createNum = data.data.createNum
           this.joinNum = data.data.joinNum
           this.imageUrl = config.image_url + data.data.avatar
-          console.log(data)
         })
     },
     uploadAva(response, file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw);
       // this.imageUrl = 'http://localhost:8006/image/nanjing.jpg'
-      console.log(this.imageUrl)
     },
   }
 }

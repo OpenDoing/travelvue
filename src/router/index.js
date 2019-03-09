@@ -11,11 +11,18 @@ import Profile from '@/views/info/Profile'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Line from '@/views/Line'
+import AdminHome from '@/views/AdminHome'
+import User from '@/views/admin/User'
+import Trip from '@/views/admin/Trip'
+import Rate from '@/views/admin/Rate'
+import Comment from '@/views/admin/Comment'
+import AddRate from '@/views/admin/AddRate'
+import PersonInfo from '@/views/PersonInfo'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -68,9 +75,45 @@ export default new Router({
       component: Profile
     },
     {
+      path: '/info/:id',
+      name: 'PersonInfo',
+      component: PersonInfo
+    },
+    {
       path: '/line',
       name: 'Line',
       component: Line
+    },
+    {
+      path: '/admin',
+      name: 'AdminHome',
+      component: AdminHome
+    },
+    {
+      path: '/admin/user',
+      name: 'User',
+      component: User
+    },
+    {
+      path: '/admin/trip',
+      name: 'Trip',
+      component: Trip
+    },
+    {
+      path: '/admin/rate',
+      name: 'Rate',
+      component: Rate
+    },
+    {
+      path: '/admin/comment',
+      name: 'Comment',
+      component: Comment
+    },
+    {
+      path: '/admin/addrate',
+      name: 'AddRate',
+      component: AddRate
     }
+
   ]
 })
