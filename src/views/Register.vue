@@ -116,7 +116,7 @@ export default {
           window.localStorage.setItem('username', data.data.username)
           this.userId = response.data.data.id
           this.idOK = true
-          this.$router.push({path: '/'})
+          this.$router.push({path: '/home'})
 
           console.log(response)
         })

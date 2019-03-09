@@ -10,6 +10,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueCookies from 'vue-cookies'
 import  { ToastPlugin } from 'vux'
+import Mui from 'vue-awesome-mui'
+Vue.use(Mui)
 
 Vue.use(ToastPlugin)
 Vue.use(VueCookies)

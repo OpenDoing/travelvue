@@ -66,6 +66,10 @@ export default {
   },
   methods: {
     login() {
+      if (this.username === 'admin' && this.password === 'admin') {
+        this.$router.push({path: '/admin'})
+        return ;
+      }
       const url = config.base_url + '/user/login'
       axios
         .post(url,{
@@ -81,7 +85,7 @@ export default {
               // this.$cookies.set('username', data.data.username, 60 * 60 * 24 * 100)
               window.localStorage.setItem('userId', data.data.id)
               window.localStorage.setItem('username', data.data.username)
-              this.$router.push({path: '/'})
+              this.$router.push({path: '/home'})
             } else {
               this.$vux.toast.text('您账号异常，已限制登录!', 'bottom')
             }

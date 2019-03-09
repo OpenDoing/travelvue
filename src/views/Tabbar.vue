@@ -37,6 +37,7 @@
       </mt-tab-item>
     </mt-tabbar>
   </div>
+    <!--<Travel></Travel>-->
 </template>
 
 <script>
@@ -44,6 +45,9 @@ import Info from './Info'
 import Travel from "./Travel"
 import Exchange from "./Exchange"
 import Account from "./Account"
+import { Tabbar, TabbarItem,XHeader } from 'vux'
+import {config} from "../utils/global"
+
 export default {
   name: "Tabbar",
   components: {
@@ -51,25 +55,27 @@ export default {
     Exchange,
     Travel,
     Info,
+    Tabbar,
+    TabbarItem,
+    XHeader
   },
   data() {
     return {
-      selected: '约伴'
+      selected: config.selected
     }
   },
   methods: {
     travel() {
-      this.selected = '约伴'
+      config.selected = '约伴'
     },
     rate() {
-      this.selected = '汇率'
+      config.selected  = '汇率'
     },
     money() {
-      this.selected = '记账'
+      config.selected  = '记账'
     },
     mine() {
-      console.log(1)
-      this.selected = '我的'
+      config.selected  = '我的'
     }
   }
 }

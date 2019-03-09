@@ -19,6 +19,10 @@ import Comment from '@/views/admin/Comment'
 import AddRate from '@/views/admin/AddRate'
 import PersonInfo from '@/views/PersonInfo'
 
+import Account from '@/views/Account'
+import Info from '@/views/Info'
+import Exchange from '@/views/Exchange'
+
 Vue.use(Router)
 
 export default new Router({
@@ -26,13 +30,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Tab',
-      component: Tabbar
-    },
-    {
-      path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/home/account',
+      name: 'Account',
+      component: Account
+    },
+    {
+      path: '/home/info',
+      name: 'Info',
+      component: Info
+    },
+    {
+      path: '/home/exchange',
+      name: 'Exchange',
+      component: Exchange
+    },
+    {
+      path: '/home',
+      name: 'Tabbar',
+      component: Tabbar
     },
     {
       path: '/register',
