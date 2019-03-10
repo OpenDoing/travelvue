@@ -64,7 +64,7 @@
           <cell title="修改密码" :link="'/info/password/' + userId" >
             <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../static/img/money/else/password.svg">
           </cell>
-          <cell title="切换账号" link="/login" >
+          <cell title="切换账号" link="/" >
             <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../static/img/money/else/login.svg">
           </cell>
         </group>

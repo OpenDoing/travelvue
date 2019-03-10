@@ -227,7 +227,7 @@ export default {
         .get(eurl)
         .then(response=>{
           for (let i = 0; i< response.data.data.length; i++) {
-            response.data.data[i].path = '../../../static/img/money/' + response.data.data[i].path
+            response.data.data[i].path = './static/img/money/' + response.data.data[i].path
           }
           this.eiconList = response.data.data
         })
@@ -235,7 +235,7 @@ export default {
         .get(iurl)
         .then(response=>{
           for (let i = 0; i< response.data.data.length; i++) {
-            response.data.data[i].path = '../../../static/img/money/' + response.data.data[i].path
+            response.data.data[i].path = './static/img/money/' + response.data.data[i].path
           }
           this.iiconList = response.data.data
         })
