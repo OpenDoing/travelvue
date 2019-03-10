@@ -64,7 +64,15 @@ export default {
       password: '',
     }
   },
+  mounted() {
+    this.judgeStorge()
+  },
   methods: {
+    judgeStorge() {
+      if (localStorage.getItem('userId')) {
+        this.$router.push({path: '/home'})
+      }
+    },
     login() {
       if (this.username === 'admin' && this.password === 'admin') {
         this.$router.push({path: '/admin'})
