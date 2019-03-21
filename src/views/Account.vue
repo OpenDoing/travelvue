@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header class="headerbg" title="旅行记账"><router-link :to="{name: 'LinePage',params: {id: userId}}" slot="right" >统计</router-link></x-header>
+    <x-header class="headerbg" title="旅行记账" :left-options="{showBack: false}"><router-link :to="{name: 'LinePage',params: {id: userId}}" slot="right" >统计</router-link></x-header>
     <x-icon class="fixButton" type="ios-plus" size="50" v-tap="{methods:addMoney}"></x-icon>
     <flexbox class="headerbg">
       <flexbox-item class="vux-1px-r fontColor">

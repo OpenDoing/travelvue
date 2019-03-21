@@ -12,6 +12,17 @@
         <!--<router-link :to="{name:'AddPlan',params: {id: 1}}"><b class="fabu">发布</b></router-link>-->
       <!--</flexbox-item>-->
     </flexbox>
+    <div v-show="recommendShow" class="itemWrapper">
+      <router-link :to="{name:'Detail',params: {id: recommend.id}}" style="color: black">
+        <flexbox class="itemContent" orient="vertical" style="margin-top: 15px">
+          <flexbox-item><div class="title">推荐行程：{{recommend.title}}</div></flexbox-item>
+          <flexbox-item><div>{{recommend.description}}</div></flexbox-item>
+        </flexbox>
+        <flexbox class="itemContent" orient="vertical">
+          <flexbox-item><div class=""><img src="../assets/img/destination.svg" class="losvg imgcenter"/>目的地 &nbsp;<b>{{recommend.destination}}</b></div></flexbox-item>
+        </flexbox>
+      </router-link>
+    </div>
 
     <x-icon class="fixButton" type="ios-plus" size="50" v-tap="{methods:addplan}"></x-icon>
     <div class="wrapperbg">
@@ -78,12 +89,34 @@ export default {
     return {
       value: '',
       plans: [],
+      recommendShow: false,
+      recommend: {
+
+      }
     }
   },
   mounted() {
+    this.recommendT()
     this.init()
   },
   methods: {
+    recommendT() {
+      let userId = localStorage.getItem('userId')
+      const url = config.base_url + '/plan/destination?userId=' + userId
+      axios
+        .get(url)
+        .then(response=>{
+          this.recommend = response.data.data
+          if (response.data.data.length === 0) {
+            this.recommendShow = false
+            this.$vux.toast.text('暂无推荐！', 'bottom')
+            return
+          } else if (this.recommend.length > 0) {
+            this.recommend = response.data.data[0]
+          }
+          this.recommendShow = true
+        })
+    },
     compare(property) {
       return function(a, b) {
         const value1 = a[property];
@@ -107,7 +140,7 @@ export default {
             data[i].cover = config.image_url + data[i].cover
           }
           this.plans = data
-          this.plans = this.plans.sort(this.compare("joins.length"))
+          this.plans = this.plans.sort(this.compare("ctime"))
           if (data.length === 0) {
             this.$vux.toast.text('暂无此目的地！', 'bottom')
           }
@@ -115,8 +148,8 @@ export default {
 
     },
     addplan() {
-      console.log(111)
-      this.$router.push({path: '/plan/' + 1})
+      let userId = localStorage.getItem('userId')
+      this.$router.push({path: '/plan/' + userId})
     }
   }
 }

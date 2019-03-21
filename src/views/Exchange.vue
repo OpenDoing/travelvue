@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>汇率换算</x-header>
+    <x-header  :left-options="{showBack: false}">汇率换算</x-header>
     <flexbox class="wrapper cfont">
       <flexbox-item :span="2"><img src="../assets/img/china.svg" class="flag"/></flexbox-item>
       <flexbox-item :span="6">CNY</flexbox-item>

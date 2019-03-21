@@ -122,6 +122,16 @@ export default {
     this.init()
   },
   methods:{
+    addlike(val) {
+      let userId = localStorage.getItem('userId')
+
+      const url = config.base_url + '/plan/like?userId=' + userId + '&destination=' + val
+      axios
+        .post(url)
+        .then(response=>{
+          console.log("success")
+        })
+    },
     person(id) {
       this.$router.push({name:'PersonInfo',params: {id: id}})
     },
@@ -131,7 +141,8 @@ export default {
         .get(url)
         .then(response=>{
           console.log(response)
-          const data = response.data
+          this.addlike(response.data.data.destination)
+          let data = response.data
           data.data.avatar = config.image_url + data.data.avatar
           data.data.cover = config.image_url + data.data.cover
           for (let i = 0; i < data.data.comments.length;i++){

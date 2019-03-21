@@ -1,27 +1,28 @@
 <template>
   <div>
-    <x-header class="headerbg">个人中心</x-header>
+    <x-header class="headerbg" :left-options="{showBack: false}">个人中心</x-header>
     <flexbox style="margin-top: 20px">
       <flexbox-item :span="1"></flexbox-item>
-      <flexbox-item>
+      <flexbox-item :span="6">
         <flexbox orient="vertical">
-          <flexbox-item><p style="font-size: 22px;"><b>{{username}}</b></p></flexbox-item>
+          <flexbox-item><p style="font-size: 22px;"><b>{{username}}561</b></p></flexbox-item>
           <flexbox-item>ID:{{userId}}</flexbox-item>
         </flexbox>
       </flexbox-item>
       <flexbox-item :span="4">
         <!--<img src="../assets/logo.png" class="avatar">-->
         <el-upload
-        class="avatar-uploader"
-        :action="local"
-        :show-file-list="false"
-        :on-progress="uploadAva"
-        :data="uploadData"
-        name="file">
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-        <i v-else class="el-icon-picture avatar-uploader-icon"></i>
+          class="avatar-uploader"
+          :action="local"
+          :show-file-list="false"
+          :on-progress="uploadAva"
+          :data="uploadData"
+          name="file">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-picture avatar-uploader-icon"></i>
         </el-upload>
       </flexbox-item>
+
     </flexbox>
     <!--<flexbox style="margin-top: 20px;">-->
       <!--<flexbox-item :span="1"></flexbox-item>-->
@@ -64,7 +65,7 @@
           <cell title="修改密码" :link="'/info/password/' + userId" >
             <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../static/img/money/else/password.svg">
           </cell>
-          <cell title="切换账号" link="/" >
+          <cell title="切换账号"  @click.native="changeAccount">
             <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../static/img/money/else/login.svg">
           </cell>
         </group>
@@ -110,6 +111,10 @@ export default {
     this.init()
   },
   methods: {
+    changeAccount() {
+      window.localStorage.clear();
+      this.$router.push({path: '/'})
+    },
     init() {
       const userId = localStorage.getItem('userId')
       const url = config.base_url + '/user/info?userId=' + userId
