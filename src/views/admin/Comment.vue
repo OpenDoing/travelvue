@@ -3,13 +3,16 @@
     <x-header>评论管理</x-header>
     <flexbox  orient="vertical">
       <flexbox-item v-for="comment in comments" :key="comment.id" style="margin-top: 10px;border-bottom: 10px solid #F5F5F5;">
-        <div @click="del(comment.id)">
-          用户名：{{comment.username}}
-          <br/>
-          评论内容：{{comment.content}}
-          <br/>
-          评论时间: {{comment.ctime}}
-        </div>
+        <router-link :to="{name:'UComment',params: {id: comment.id}}" style="color: black">
+          <!--@click="del(comment.id)"-->
+          <div >
+            用户名：{{comment.username}}
+            <br/>
+            评论内容：{{comment.content}}
+            <br/>
+            评论时间: {{comment.ctime}}
+          </div>
+        </router-link>
       </flexbox-item>
     </flexbox>
     <confirm v-model="showConfirm"
@@ -57,7 +60,8 @@ export default {
         .delete(url)
         .then(response=>{
           this.$vux.toast.text('删除成功！', 'bottom')
-          this.reload()
+          this.$router.push({path: '/admin/comment'})
+          // this.reload()
         })
       this.showConfirm = false
     },

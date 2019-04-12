@@ -1,10 +1,11 @@
 <template>
   <div>
-    <x-header>发布约计划</x-header>
+    <x-header title="修改约计划"></x-header>
+    <!--<div slot="right" @click="del(id)">删除</div>-->
     <flexbox class="bordert">
       <flexbox-item class="borderb borderr borderl">
         <group>
-          <x-input v-model="title" required  placeholder="请输入行程标题"></x-input>
+          <x-input v-model="title" required  placeholder="行程标题"></x-input>
         </group>
       </flexbox-item>
     </flexbox>
@@ -69,130 +70,123 @@
         </group>
       </flexbox-item>
     </flexbox>
-    <flexbox>
-      <flexbox-item>
-        <el-upload
-        class="avatar-uploader"
-        :action="local"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :data="uploadData"
-        name="file">
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-      </flexbox-item>
-      <flexbox-item><--建议添加横版图片</flexbox-item>
-    </flexbox>
     <flexbox class="mt15">
       <flexbox-item :span="3"></flexbox-item>
       <flexbox-item :span="6">
-        <x-button type="warn" class="butBg" @click.native="addPlan">添加约伴计划</x-button>
+        <x-button type="warn" class="butBg" @click.native="updatePlan">提交修改</x-button>
       </flexbox-item>
     </flexbox>
-
+    <confirm v-model="showConfirm"
+             title="温馨提示"
+             theme="android"
+             confirm-text="删除"
+             @on-cancel="onCancel"
+             @on-confirm="onConfirm(delid)">
+      <p style="text-align:left;">删除后数据不可恢复！</p>
+    </confirm>
   </div>
 </template>
 
 <script>
-import {Flexbox, FlexboxItem, XHeader, XButton, Group, XInput, Divider, Datetime, Selector, XTextarea,Calendar,Cell   } from 'vux'
-import Uploader from 'vux-uploader'
-import {config} from "../../utils/global"
-import axios from 'axios'
-export default {
-  name: "AddPlan",
-  components: {
-    FlexboxItem,
-    Flexbox,
-    XHeader,
-    XButton,
-    XInput,
-    Group,
-    Divider,
-    Datetime,
-    Selector,
-    XTextarea,
-    Calendar,
-    Uploader,
-    Cell
-  },
-  data() {
-    return {
-      local: config.base_url + '/plan/cover/',
-      uploadData: {
-        userId: localStorage.getItem('userId')
-      },
-      title: '',
-      start: '',
-      destination: '',
-      stime: '',
-      etime: '',
-      budget: 500,
-      description: '',
-      way: 1,
-      list: [
-        { key: 1, value: 'AA' },
-        { key: 2, value: '男A女免' },
-        { key: 3, value: '免费（我请客）' },
-      ],
-      detail: '',
-      people: 0,
-      imageUrl: '',
-      imgaddress: ''
-      // varmax: 2,
-      // uploadUrl: '',
-      // params: {},
-      // images: [
-      //   { url: 'http://localhost:8006/image/7b18f34c-f533-4605-9172-7c89a8d25e19.jpg' }
-      // ]
-    }
-  },
-  methods: {
-
-    onConfirmS (val) {
-      this.stime = val
+  import {Flexbox, FlexboxItem, XHeader, XButton, Group, XInput, Divider, Datetime, Selector, XTextarea,Calendar,Cell ,Confirm  } from 'vux'
+  import Uploader from 'vux-uploader'
+  import {config} from "../../utils/global"
+  import axios from 'axios'
+  export default {
+    name: "UPlan",
+    components: {
+      FlexboxItem,
+      Flexbox,
+      XHeader,
+      XButton,
+      XInput,
+      Group,
+      Divider,
+      Datetime,
+      Selector,
+      XTextarea,
+      Calendar,
+      Uploader,
+      Cell,
+      Confirm
     },
-    onConfirmE (val) {
-      this.etime = val
-    },
-    log (str1, str2 = '') {
-      console.log(str1, str2)
-    },
-    handleAvatarSuccess(response, file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.imgaddress = response.data
-
-    },
-    addPlan() {
-      const url = config.base_url + '/plan/add'
-      const way = this.list[this.way - 1].value
-      const userId = localStorage.getItem('userId')
-      if (this.imgaddress) {
-        axios
-          .post(url,{
-            userId: userId,
-            title: this.title,
-            start: this.start,
-            destination: this.destination,
-            stime: this.stime,
-            etime: this.etime,
-            budget: this.budget,
-            people: this.people,
-            fee: way,
-            description: this.description,
-            cover: this.imgaddress
-          })
-          .then(response=>{
-            this.$vux.toast.text('添加计划成功！', 'bottom')
-            console.log(response)
-          })
-      } else {
-        this.$vux.toast.text('等等，图片还在上传！', 'bottom')
+    data() {
+      return {
+        id: this.$route.params.id,
+        showConfirm: false,
+        title: '',
+        start: '',
+        destination: '',
+        stime: '',
+        etime: '',
+        budget: 100,
+        description: '',
+        way: 1,
+        list: [
+          { key: 1, value: 'AA' },
+          { key: 2, value: '男A女免' },
+          { key: 3, value: '免费（我请客）' },
+        ],
+        detail: '',
+        people: 0,
       }
-
+    },
+    mounted() {
+      this.init()
+    },
+    methods: {
+      onConfirm(id) {
+        const url = config.base_url + '/plan/del?id=' + id
+        axios
+          .delete(url)
+          .then(response=>{
+            this.$vux.toast.text('删除成功！', 'bottom')
+            this.reload()
+          })
+        this.showConfirm = false
+      },
+      onCancel() {
+        this.showConfirm = false
+      },
+      init() {
+        const url = config.base_url + '/plan/get?id=' + this.$route.params.id
+        axios
+          .get(url)
+          .then(response=>{
+            console.log(response)
+            this.title = response.data.data.title
+            this.start = response.data.data.start
+            this.destination = response.data.data.destination
+            this.people = response.data.data.people
+            this.description = response.data.data.description
+            this.stime = response.data.data.stime
+            this.etime = response.data.data.etime
+          })
+      },
+      onConfirmS (val) {
+        this.stime = val
+      },
+      onConfirmE (val) {
+        this.etime = val
+      },
+      log (str1, str2 = '') {
+        console.log(str1, str2)
+      },
+      updatePlan() {
+        const way = this.list[this.way - 1].value
+        const url = config.base_url + '/plan/change?id=' + this.$route.params.id + '&title=' + this.title + '&start=' + this.start
+          + '&destination=' + this.destination + '&budget=' + this.budget + '&people=' + this.people + '&fee=' + way + '&description=' + this.description
+          + '&stime=' + this.stime + '&etime=' + this.etime
+        const userId = localStorage.getItem('userId')
+          axios
+            .post(url)
+            .then(response=>{
+              this.$vux.toast.text('提交成功！', 'bottom')
+              console.log(response)
+            })
+      }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -209,9 +203,9 @@ export default {
     border-right: 10px solid #F5F5F5;
   }
 
-.vux-x-icon {
-  fill: #F70968;
-}
+  .vux-x-icon {
+    fill: #F70968;
+  }
   .place{
     width: 28px;
     height: 28px;

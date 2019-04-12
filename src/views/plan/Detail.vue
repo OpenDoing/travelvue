@@ -101,6 +101,7 @@ import {config} from "../../utils/global"
 import axios from 'axios'
 export default {
   name: "Detail",
+  inject: ['reload'],
   components: {
     FlexboxItem,
     Flexbox,
@@ -182,7 +183,7 @@ export default {
         })
         .then(response=>{
           this.$vux.toast.text('评论成功', 'bottom')
-
+          this.reload()
         })
     }
   }

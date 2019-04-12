@@ -18,7 +18,8 @@ import Rate from '@/views/admin/Rate'
 import Comment from '@/views/admin/Comment'
 import AddRate from '@/views/admin/AddRate'
 import PersonInfo from '@/views/PersonInfo'
-
+import UComment from '@/views/admin/UComment'
+import UPlan from '@/views/admin/UPlan'
 import Account from '@/views/Account'
 import Info from '@/views/Info'
 import Exchange from '@/views/Exchange'
@@ -119,6 +120,11 @@ export default new Router({
       component: Trip
     },
     {
+      path: '/admin/trip/:id',
+      name: 'UPlan',
+      component: UPlan
+    },
+    {
       path: '/admin/rate',
       name: 'Rate',
       component: Rate
@@ -127,6 +133,11 @@ export default new Router({
       path: '/admin/comment',
       name: 'Comment',
       component: Comment
+    },
+    {
+      path: '/admin/comment/:id',
+      name: 'UComment',
+      component: UComment
     },
     {
       path: '/admin/addrate',

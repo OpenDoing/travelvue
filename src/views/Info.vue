@@ -5,7 +5,7 @@
       <flexbox-item :span="1"></flexbox-item>
       <flexbox-item :span="6">
         <flexbox orient="vertical">
-          <flexbox-item><p style="font-size: 22px;"><b>{{username}}561</b></p></flexbox-item>
+          <flexbox-item><p style="font-size: 22px;"><b>{{username}}</b></p></flexbox-item>
           <flexbox-item>ID:{{userId}}</flexbox-item>
         </flexbox>
       </flexbox-item>

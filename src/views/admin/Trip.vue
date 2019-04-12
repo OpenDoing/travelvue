@@ -3,23 +3,18 @@
     <x-header>行程管理</x-header>
     <flexbox  orient="vertical">
       <flexbox-item v-for="plan in plans" :key="plan.id" style="margin-top: 10px;border-bottom: 10px solid #F5F5F5;">
-        <div @click="del(plan.id)">
-          用户名：{{plan.username}}
-          <br/>
-          行程标题：{{plan.title}}
-          <br/>
-          目的地: {{plan.destination}}
-        </div>
+        <router-link :to="{name:'UPlan',params: {id: plan.id}}" style="color: black">
+          <div>
+            用户名：{{plan.username}}
+            <br/>
+            行程标题：{{plan.title}}
+            <br/>
+            目的地: {{plan.destination}}
+          </div>
+        </router-link>
       </flexbox-item>
     </flexbox>
-      <confirm v-model="showConfirm"
-               title="温馨提示"
-               theme="android"
-               confirm-text="删除"
-               @on-cancel="onCancel"
-               @on-confirm="onConfirm(delid)">
-        <p style="text-align:left;">删除后数据不可恢复！</p>
-      </confirm>
+
   </div>
 </template>
 
