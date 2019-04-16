@@ -175,7 +175,7 @@
       updatePlan() {
         const way = this.list[this.way - 1].value
         const url = config.base_url + '/plan/change?id=' + this.$route.params.id + '&title=' + this.title + '&start=' + this.start
-          + '&destination=' + this.destination + '&budget=' + this.budget + '&people=' + this.people + '&fee=' + way + '&description=' + this.description
+          + '&destination=' + this.destination + '&budget=' + Number(this.budget) + '&people=' + Number(this.people) + '&fee=' + way + '&description=' + this.description
           + '&stime=' + this.stime + '&etime=' + this.etime
         const userId = localStorage.getItem('userId')
           axios

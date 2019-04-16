@@ -187,7 +187,7 @@ export default {
             console.log(response)
           })
       } else {
-        this.$vux.toast.text('等等，图片还在上传！', 'bottom')
+        this.$vux.toast.text('还未选择/上传图片！', 'bottom')
       }
 
     }
